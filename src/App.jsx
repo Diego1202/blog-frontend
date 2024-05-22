@@ -112,23 +112,47 @@ console.log(newBlog)
 		}
 	}
 
+	const AddFrom = () => {
+
+		return (
+			<div className='flex justify-center items-center gap-3'>
+			<p>Añadir nuevo blog</p>
+			<img src="../public/add_box_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+			</div>
+			
+		)
+	}
+
+	const CancelForm = () => {
+		return (
+			<div className='flex justify-center items-center gap-3'>
+				<p>Cancelar</p>
+				<img src="../public/cancel_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+			</div>
+		)
+	}
+
 	function blogList() {
 		return (
-			<section className='flex p-4 py-10 w-2/3 mx-auto mt-8 flex-col transition-border ease-out duration-150 gap-5 border-2 rounded-md bg-slate-200'>
-				<header className='flex justify-around'>
+			<section className='flex flex-col bg-secondary rounded-md w-[55%] h-2/6 p-5 m-7'>
+				<header className='flex justify-between border-2 border-tertiary bg-tertiary p-5 rounded-md shadow-lg'>
 					<h2 className='text-3xl font-bold'>Blogs</h2>
-					<h3>{user.name}&nbsp;
-						<button className='text-red-600 font-bold transition-colors ease-out delay-300 hover:underline rounded' onClick={handleLogout}>Logout</button>
+					<h3 className='flex  justify-center items-center'>{user.name}
+						<img className='ml-1 mr-5 w-[25%]'src="../public/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+						<button className='flex justify-center items-center text-black font-bold bg-primary p-1 rounded-md shadow-lg gap-1 h-[80%] w-[55%] pr-3 pl-3 transition-transform hover:scale-105' onClick={handleLogout}>Logout
+						<img className='w-[50%]  '  src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="" />
+						</button>
+						
 					</h3>
 				</header>
-				<button className='text-red-600 font-bold transition-colors ease-out delay-300 hover:underline rounded' onClick={() => setView(!view)}>{ view ? 'Cancelar' : 'Agregar nuevo blog'}</button>
+				<button className='bg-primary p-1 rounded-md shadow-lg w-[40%] h-[55%] m-4 py-2 px-3 font-bold transition-transform hover:scale-105' onClick={() => setView(!view)}>{ view ? CancelForm() : AddFrom() }</button>
 				<article>
 					<NewBlog 
 						title={title} author={author} url={url} setTitle={setTitle} setAuthor={setAuthor} setUrl={setUrl} handleBlogAdd={handleBlogAdd} show={view}/>
 				</article>
 				<article>
 				{
-				blogs.length === 0 ? <h1 className='text-xl font-bold mx-auto p-4'>No hay blogs</h1> :
+				blogs.length === 0 ? <h1 className='text-xl font-bold mx-auto p-4'>No hay blogs...</h1> :
 				blogs.map(blog => <Blog key={blog._id} blog={blog} />)}
 				</article>
 			</section>
@@ -137,13 +161,13 @@ console.log(newBlog)
 
 	function Notification() {
 		return (
-			<div className="text-center w-80 text-red-600 text-sm">
+			<div className="bg-red-100 border border-red-600 text-red-700 px-4 py-3 rounded-md fixed top-4 right-4">
 				{message}
 			</div>
 		)
 	}
 	return (
-		<div>
+		<div className='bg-background min-h-screen flex flex-col justify-center items-center '>
 			{message !== null ? Notification() : null}
 			{user !== null ?
 				blogList() :
