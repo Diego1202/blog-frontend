@@ -25,7 +25,7 @@ export default function Forms({ register, setRegister, name, setName, username, 
 						placeholder="Password" />
 				</label>
 				<div className="flex flex-col justify-center items-center w-[80%] gap-2 mx-auto">
-					<button className="py-2 w-100 px-4 w-2/3 md:w-2/4 mx-auto font-bold   text-black bg-primary rounded-md transition-transform hover:scale-105">Iniciar Sesion</button>
+					<button className="py-2 w-100 px-4 w-2/3 md:w-2/4 mx-auto font-bold   text-black bg-primary rounded-md transition-transform hover:scale-105 shadow-lg">Iniciar Sesion</button>
 					<span className="pt-5">No tienes una cuenta?
 						<a onClick={() => { setRegister(true) }}
 							className="text-center font-bold text-black px-2 rounded-md  hover:underline pointer">Registrate</a>
@@ -66,7 +66,7 @@ export default function Forms({ register, setRegister, name, setName, username, 
 						placeholder="Password" />
 				</label>
 				<div className="flex flex-col justify-center items-center w-[80%] gap-2 mx-auto">
-					<button className="py-2 w-100 px-4 w-2/3 md:w-2/4 mx-auto font-bold   text-black bg-primary rounded-md transition-transform hover:scale-105">Registrarse</button>
+					<button className="py-2 w-100 px-4 w-2/3 md:w-2/4 mx-auto font-bold   text-black bg-primary rounded-md transition-transform hover:scale-105 shadow-lg">Registrarse</button>
 					<span className="pt-5">Ya tienes una cuenta?
 						<a onClick={() => { setRegister(false) }}
 							className="text-center font-bold text-black px-2 rounded-md  hover:underline pointer"> Iniciar Sesion</a>
