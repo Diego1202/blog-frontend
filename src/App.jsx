@@ -30,10 +30,15 @@ const App = () => {
 
 	useEffect(() => {
 		blogService.getAll().then(blogs => {
-			console.log(blogs)
 			setBlogs(blogs)
 		}
-		)
+		).catch(error => {
+			if (error.response.data.error === 'jwt expired'){
+				console.log(error.response.data.error)
+				handleLogout();
+			}
+			
+		})
 	}, [user])
 
 	async function handleLogin(event) {
@@ -95,7 +100,7 @@ const App = () => {
 		try {
 			const newBlog = await blogService.create({ title, author, url })
 			setBlogs(blogs.concat(newBlog))
-console.log(newBlog)
+			console.log(newBlog)
 			setView(!view)
 			setTitle('')
 			setAuthor('')
@@ -112,14 +117,30 @@ console.log(newBlog)
 		}
 	}
 
+	async function handleBlogDelete(id) {
+		try {
+			await blogService.remove(id)
+			setBlogs(blogs.filter(b => b._id !== id))
+		} catch (error) {
+			console.log(error)
+			if (error.response) {
+				setMessage(error.response.data.error)
+				setUser(null)
+				setTimeout(() => {
+					setMessage(null)
+				}, 5000)
+			}
+		}
+	}
+
 	const AddFrom = () => {
 
 		return (
 			<div className='flex justify-center items-center gap-3'>
-			<p>Añadir nuevo blog</p>
-			<img src="../public/add_box_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+				<p>Agregar blog</p>
+				<img src="../public/add_box_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 			</div>
-			
+
 		)
 	}
 
@@ -135,26 +156,26 @@ console.log(newBlog)
 	function blogList() {
 		return (
 			<section className='flex flex-col bg-secondary rounded-md w-[55%] h-2/6 p-5 m-7'>
-				<header className='flex justify-between border-2 border-tertiary bg-tertiary p-5 rounded-md shadow-lg'>
+				<header className='flex max-md:flex-col max-md:gap-5 justify-between border-2 border-tertiary bg-tertiary p-5 rounded-md shadow-lg'>
 					<h2 className='text-3xl font-bold'>Blogs</h2>
-					<h3 className='flex  justify-center items-center'>{user.name}
-						<img className='ml-1 mr-5 w-[25%]'src="../public/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+					<nav className='flex justify-center items-center max-md:flex-col gap-3'>
+						<span className='w-auto max-md:hidden'>{user.username}</span>
+						<img className='w-7 max-md:hidden' src="../public/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 						<button className='flex justify-center items-center text-black font-bold bg-primary p-1 rounded-md shadow-lg gap-1 h-[80%] w-[55%] pr-3 pl-3 transition-transform hover:scale-105' onClick={handleLogout}>Logout
-						<img className='w-[50%]  '  src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="" />
+							<img className='w-7' src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="" />
 						</button>
-						
-					</h3>
+					</nav>
 				</header>
-				<button className='bg-primary p-1 rounded-md shadow-lg w-[40%] h-[55%] m-4 py-2 px-3 font-bold transition-transform hover:scale-105' onClick={() => setView(!view)}>{ view ? CancelForm() : AddFrom() }</button>
+				<button className='bg-primary p-1 rounded-md shadow-lg w-[40%] h-[55%] m-4 py-2 px-3 font-bold transition-transform hover:scale-105' onClick={() => setView(!view)}>{view ? CancelForm() : AddFrom()}</button>
 				<article>
-					<NewBlog 
-						title={title} author={author} url={url} setTitle={setTitle} setAuthor={setAuthor} setUrl={setUrl} handleBlogAdd={handleBlogAdd} show={view}/>
+					<NewBlog
+						title={title} author={author} url={url} setTitle={setTitle} setAuthor={setAuthor} setUrl={setUrl} handleBlogAdd={handleBlogAdd} show={view} />
 				</article>
-				<article>
-				{
-				blogs.length === 0 ? <h1 className='text-xl font-bold mx-auto p-4'>No hay blogs...</h1> :
-				blogs.map(blog => <Blog key={blog._id} blog={blog} />)}
-				</article>
+				<section className='flex flex-col gap-5'>
+					{
+						blogs.length === 0 ? <h1 className='text-xl font-bold mx-auto p-4'>No hay blogs...</h1> :
+							blogs.map(blog => <Blog key={blog._id} blog={blog} handleBlogDelete={handleBlogDelete} />)}
+				</section>
 			</section>
 		)
 	}
