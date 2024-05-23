@@ -117,6 +117,39 @@ const App = () => {
 		}
 	}
 
+
+	async function onLikeBlogs(id){
+		try {
+			const updateLike = blogs.find(b => b._id === id)
+
+			if (updateLike){
+			const updatedBlog = {
+				...updateLike,
+				likes: updateLike.likes + 1
+			};
+			await blogService.edit(id, updatedBlog)
+			setBlogs(blogs.map(b => b._id === id? updatedBlog : b))
+		} else{
+			console.log('blog 404')
+		}
+		} catch (error) {
+			console.log(error);
+			if (error.response){
+				setMessage(error.response.data.error);
+				setUser(null);
+				setTimeout(() => {
+					setMessage(null);
+				}, 5000);
+			}
+			
+		}
+	}
+
+	
+
+	  
+	  
+
 	async function handleBlogDelete(id) {
 		try {
 			await blogService.remove(id)
@@ -161,7 +194,7 @@ const App = () => {
 					<nav className='flex justify-center items-center max-md:flex-col gap-3'>
 						<span className='w-auto max-md:hidden'>{user.username}</span>
 						<img className='w-7 max-md:hidden' src="../public/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
-						<button className='flex justify-center items-center text-black font-bold bg-primary p-1 rounded-md shadow-lg gap-1 h-[80%] w-[55%] pr-3 pl-3 transition-transform hover:scale-105' onClick={handleLogout}>Logout
+						<button className=' flex justify-center items-center text-black font-bold bg-primary p-1 rounded-md shadow-lg gap-1 h-[80%] w-[55%] pr-3 pl-3 transition-transform hover:scale-105' onClick={handleLogout}>Logout
 							<img className='w-7' src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="" />
 						</button>
 					</nav>
@@ -174,7 +207,7 @@ const App = () => {
 				<section className='flex flex-col gap-5'>
 					{
 						blogs.length === 0 ? <h1 className='text-xl font-bold mx-auto p-4'>No hay blogs...</h1> :
-							blogs.map(blog => <Blog key={blog._id} blog={blog} handleBlogDelete={handleBlogDelete} />)}
+							blogs.map(blog => <Blog key={blog._id} blog={blog} handleBlogDelete={handleBlogDelete} handleStartBlogAdd={onLikeBlogs}/>)}
 				</section>
 			</section>
 		)
