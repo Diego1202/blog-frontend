@@ -195,7 +195,7 @@ const App = () => {
 						<span className='w-auto max-md:hidden'>{user.username}</span>
 						<img className='w-7 max-md:hidden' src="../public/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 						<button className=' flex justify-center items-center text-black font-bold bg-primary p-1 rounded-md shadow-lg gap-1 h-[80%] w-[55%] pr-3 pl-3 transition-transform hover:scale-105' onClick={handleLogout}>Logout
-							<img className='w-7' src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24 (1).svg" alt="" />
+							<img className='w-7' src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 						</button>
 					</nav>
 				</header>
