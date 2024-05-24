@@ -13,14 +13,14 @@ export default function Blog({ blog, handleBlogDelete, handleStartBlogAdd }) {
 				<button type="button" onClick={() => handleStartBlogAdd(blog._id)}
 					className="bg-primary text-sm p-1 rounded-md shadow-lg w-auto h-auto py-1 px-6 font-bold transition-transform hover:scale-105">
 					<div className='flex justify-center items-center gap-3'>
-						<img src="../../public/kid_star_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+						<img src="/kid_star_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 					</div>
 				</button>
 
 				<button type="button" onClick={() => handleBlogDelete(blog._id)}
 					className="bg-primary text-sm  rounded-md shadow-lg w-auto h-auto  py-1 px-6 font-bold transition-transform hover:scale-105">
 					<div className='flex justify-center items-center gap-3'>
-						<img src="../../public/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+						<img src="/delete_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 					</div>
 				</button>
 

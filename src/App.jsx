@@ -145,11 +145,6 @@ const App = () => {
 		}
 	}
 
-	
-
-	  
-	  
-
 	async function handleBlogDelete(id) {
 		try {
 			await blogService.remove(id)
@@ -171,7 +166,7 @@ const App = () => {
 		return (
 			<div className='flex justify-center items-center gap-3'>
 				<p>Agregar blog</p>
-				<img src="../public/add_box_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+				<img src="/add_box_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 			</div>
 
 		)
@@ -181,7 +176,7 @@ const App = () => {
 		return (
 			<div className='flex justify-center items-center gap-3'>
 				<p>Cancelar</p>
-				<img src="../public/cancel_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+				<img src="/cancel_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 			</div>
 		)
 	}
@@ -193,9 +188,9 @@ const App = () => {
 					<h2 className='text-3xl font-bold'>Blogs</h2>
 					<nav className='flex justify-center items-center max-md:flex-col gap-3'>
 						<span className='w-auto max-md:hidden'>{user.username}</span>
-						<img className='w-7 max-md:hidden' src="../public/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+						<img className='w-7 max-md:hidden' src="/account_circle_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 						<button className=' flex justify-center items-center text-black font-bold bg-primary p-1 rounded-md shadow-lg gap-1 h-[80%] w-[55%] pr-3 pl-3 transition-transform hover:scale-105' onClick={handleLogout}>Logout
-							<img className='w-7' src="../public/logout_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
+							<img className='w-7' src="/logout_24dp_FILL0_wght400_GRAD0_opsz24.svg" alt="" />
 						</button>
 					</nav>
 				</header>
